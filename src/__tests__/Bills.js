@@ -3,6 +3,18 @@ import BillsUI from "../views/BillsUI.js"
 import { bills } from "../fixtures/bills.js"
 
 describe("Given I am connected as an employee", () => {
+  describe("When billsUi is call", () => {
+    test("Then, it should render Loading ...", () =>{
+      const html = BillsUI({data:[], loading:true})
+      document.body.innerHTML = html
+      expect(screen.getAllByText('Loading...')).toBeTruthy()
+    })
+    test("Then, it should render Error...", () =>{
+      const html = BillsUI({data:[], loading:false, error:'Error...'})
+      document.body.innerHTML = html
+      expect(screen.getAllByText('Error...')).toBeTruthy()
+    })
+  })
   describe("When I am on Bills Page", () => {
     test("Then bill icon in vertical layout should be highlighted", () => {
       const html = BillsUI({ data: []})
