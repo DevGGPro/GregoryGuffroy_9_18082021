@@ -47,12 +47,14 @@ export default class {
             } catch(e) {
               // if for some reason, corrupted data was introduced, we manage here failing formatDate function
               // log the error and return unformatted date in that case
-              console.log(e,'for',doc.data())
-              return {
-                ...doc.data(),
-                date: doc.data().date,
-                status: formatStatus(doc.data().status)
+              if (doc.data().email === userEmail){
+                console.log(e,'for',doc.data())
               }
+                return {
+                  ...doc.data(),
+                  date: doc.data().date,
+                  status: formatStatus(doc.data().status)
+                }
             }
           })
           .filter(bill => bill.email === userEmail)
