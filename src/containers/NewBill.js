@@ -19,6 +19,11 @@ export default class NewBill {
     const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
     const filePath = e.target.value.split(/\\/g)
     const fileName = filePath[filePath.length-1]
+    let extension = /(.png|.jpg|.jpeg)$/
+    if(!fileName.match(extension)){
+      document.querySelector(`input[data-testid="file"]`).value = ""
+      alert("Veuillez inserer un justificatif au format .jpg/.jpeg/.png")
+    }
     this.firestore
       .storage
       .ref(`justificatifs/${fileName}`)
