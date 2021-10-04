@@ -26,7 +26,8 @@ export default class {
     $('#modaleFile').find(".modal-body").html(`<div style='text-align: center;'><img width=${imgWidth} src=${billUrl} /></div>`)
     $('#modaleFile').modal('show')
   }
-
+  
+  /* istanbul ignore next */
   // not need to cover this function by tests
   getBills = () => {
     const userEmail = localStorage.getItem('user') ?
