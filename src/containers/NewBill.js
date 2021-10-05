@@ -23,8 +23,8 @@ export default class NewBill {
     if(!fileName.match(extension)){
       document.querySelector(`input[data-testid="file"]`).value = ""
       alert("Veuillez inserer un justificatif au format .jpg/.jpeg/.png")
-    }
-    this.firestore
+    } else {
+      this.firestore
       .storage
       .ref(`justificatifs/${fileName}`)
       .put(file)
@@ -33,6 +33,7 @@ export default class NewBill {
         this.fileUrl = url
         this.fileName = fileName
       })
+    }
   }
   handleSubmit = e => {
     e.preventDefault()
