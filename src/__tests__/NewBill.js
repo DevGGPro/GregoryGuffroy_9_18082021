@@ -110,3 +110,35 @@ describe("Given I am connected as an employee", () => {
     
   })
 })
+
+// test d'integration POST
+describe("Given I am a user connected as Employee", () => {
+  describe("When I navigate to NewBill page", () => {
+    describe("When I post a new bill", () => {
+      test("fetches bills to mock API POST", async () => {
+       const getSpy = jest.spyOn(firebase, "post")
+       const bills = await firebase.post()
+       expect(getSpy).toHaveBeenCalledTimes(1)
+       expect(bills).toBe(200)
+      })
+      test("fetches bills to an API and fails with 404 message error", async () => {
+        firebase.post.mockImplementationOnce(() =>
+          Promise.reject(new Error("Erreur 404"))
+        )
+        const html = BillsUI({ error: "Erreur 404" })
+        document.body.innerHTML = html
+        const message = await screen.getByText(/Erreur 404/)
+        expect(message).toBeTruthy()
+      })
+      test("fetches messages to an API and fails with 500 message error", async () => {
+        firebase.post.mockImplementationOnce(() =>
+          Promise.reject(new Error("Erreur 500"))
+        )
+        const html = BillsUI({ error: "Erreur 500" })
+        document.body.innerHTML = html
+        const message = await screen.getByText(/Erreur 500/)
+        expect(message).toBeTruthy()
+      })
+    })
+  })
+})
