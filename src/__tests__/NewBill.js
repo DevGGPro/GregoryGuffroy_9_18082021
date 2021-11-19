@@ -5,6 +5,10 @@ import NewBill from "../containers/NewBill.js"
 import { ROUTES } from "../constants/routes.js";
 import { localStorageMock } from "../__mocks__/localStorage.js";
 
+import firebase from '../__mocks__/firebase';
+import BillsUI from "../views/BillsUI.js"
+
+
 describe("Given I am connected as an employee", () => {
   describe("When I am on NewBill Page", () => {
     describe("When I choose a wrong extension file", () => {
