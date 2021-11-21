@@ -1,4 +1,7 @@
 export const formatDate = (dateStr) => {
+  if (dateStr.substring(0, dateStr.indexOf('-')).length >= 5) {
+    dateStr = dateStr.replace(dateStr.substring(0, dateStr.indexOf('-')), '1992')
+  }
   const date = new Date(dateStr)
   const ye = new Intl.DateTimeFormat('fr', { year: 'numeric' }).format(date)
   const mo = new Intl.DateTimeFormat('fr', { month: 'numeric' }).format(date)

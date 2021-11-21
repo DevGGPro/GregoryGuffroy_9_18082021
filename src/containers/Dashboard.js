@@ -33,22 +33,26 @@ export const card = (bill) => {
   const lastName = firstAndLastNames.includes('.') ?
   firstAndLastNames.split('.')[1] : firstAndLastNames
 
-  return (`
+  if(parseInt(bill.date.substr(0,4), 10) > 1){
+    return (`
     <div class='bill-card' id='open-bill${bill.id}' data-testid='open-bill${bill.id}'>
-      <div class='bill-card-name-container'>
-        <div class='bill-card-name'> ${firstName} ${lastName} </div>
-        <span class='bill-card-grey'> ... </span>
-      </div>
-      <div class='name-price-container'>
-        <span> ${bill.name} </span>
-        <span> ${bill.amount} € </span>
-      </div>
-      <div class='date-type-container'>
-        <span> ${formatDate(bill.date)} </span>
-        <span> ${bill.type} </span>
-      </div>
+    <div class='bill-card-name-container'>
+    <div class='bill-card-name'> ${firstName} ${lastName} </div>
+    <span class='bill-card-grey'> ... </span>
     </div>
-  `)
+    <div class='name-price-container'>
+    <span> ${bill.name} </span>
+    <span> ${bill.amount} € </span>
+    </div>
+    <div class='date-type-container'>
+    <span> ${formatDate(bill.date)} </span>
+    <span> ${bill.type} </span>
+    </div>
+    </div>
+    `)
+  }else {
+    return ('')
+  }
 }
 
 export const cards = (bills) => {
@@ -87,7 +91,7 @@ export default class {
 
   handleEditTicket(e, bill, bills) {
     if (this.counter === undefined || this.id !== bill.id) this.counter = 0
-    if (this.id === undefined && this.id !== bill.id) this.id = bill.id
+    if (this.id === undefined || this.id !== bill.id) this.id = bill.id
     if (this.counter % 2 === 0) {
       bills.forEach(b => {
         $(`#open-bill${b.id}`).css({ background: '#0D5AE5' })
